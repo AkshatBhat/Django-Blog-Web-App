@@ -1,0 +1,153 @@
+Akshat@DESKTOP-8P05DC6 MINGW64 /d/Django_Blog
+$ python manage.py shell
+Python 3.7.4 (default, Aug  9 2019, 18:34:13) [MSC v.1915 64 bit (AMD64)]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.15.0 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]: from blog.models import Post
+
+In [2]: from django.contrib.auth.models import User
+
+In [3]: User.objects.all()
+Out[3]: <QuerySet [<User: admin>, <User: testuser>]>
+
+In [4]: User.objects.all().first()
+Out[4]: <User: admin>
+
+In [5]: User.objects.filter(username='admin')
+Out[5]: <QuerySet [<User: admin>]>
+
+In [6]: user = User.objects.filter(username='admin')
+
+In [7]: user
+Out[7]: <QuerySet [<User: admin>]>
+
+In [8]: user = user.first()
+
+In [9]: user.id
+Out[9]: 1
+
+In [10]: user.pk
+Out[10]: 1
+
+In [11]: user = User.objects.get(id=1)
+
+In [12]: user
+Out[12]: <User: admin>
+
+In [13]: Post.objects.all()
+Out[13]: <QuerySet []>
+
+In [14]: post_1 = Post(title='Blog 1',content='First Post Content',author=user)
+
+In [15]: post_1.save()
+
+In [16]: Post.objects.all()
+Out[16]: <QuerySet [<Post: Post object (1)>]>
+
+In [17]: Post.objects.all()
+Out[17]: <QuerySet [<Post: Post object (1)>]>
+
+In [18]: exit
+
+Akshat@DESKTOP-8P05DC6 MINGW64 /d/Django_Blog
+$ python manage.py shell
+Python 3.7.4 (default, Aug  9 2019, 18:34:13) [MSC v.1915 64 bit (AMD64)]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.15.0 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]: from blog.models import Post
+
+In [2]: from django.contrib.auth.models import User
+
+In [3]: Post.objects.all()
+Out[3]: <QuerySet [<Post: Blog 1>]>
+
+In [4]: user = User.objects.get(id=2)
+
+In [5]: post_2 = Post(title='Blog Test',content='Test Post Content',author=user)
+
+In [6]: post_2.save()
+
+In [7]: Post.objects.all()
+Out[7]: <QuerySet [<Post: Blog 1>, <Post: Blog Test>]>
+
+In [8]: Post.objects.all()
+Out[8]: <QuerySet [<Post: Blog 1>, <Post: Blog Test>]>
+
+In [9]: post = Post.objects.first()
+
+In [10]: post.content
+Out[10]: 'First Post Content'
+
+In [11]: post.date_posted
+Out[11]: datetime.datetime(2020, 7, 11, 10, 21, 24, 393860, tzinfo=<UTC>)
+
+In [12]: post.author
+Out[12]: <User: admin>
+
+In [13]: post.author.id
+Out[13]: 1
+
+In [14]: post.author.email
+Out[14]: 'cnms6gakshat04@gmail.com'
+
+In [15]: user
+Out[15]: <User: testuser>
+
+In [16]: user.post_set
+Out[16]: <django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager at 0x20e2776a388>
+
+In [17]: user.post_set.all()
+Out[17]: <QuerySet [<Post: Blog Test>]>
+
+In [18]: user.post_set.create(title='Test 2',content='Test 2 content')
+Out[18]: <Post: Test 2>
+
+In [19]: user.post_set.all()
+Out[19]: <QuerySet [<Post: Blog Test>, <Post: Test 2>]>
+
+{% comment %} PAGINATOR {% endcomment %}
+In [1]: from django.core.paginator import Paginator
+
+In [2]: posts = ['1','2','3','4','5']
+
+In [3]: p = Paginator(posts,2)
+
+In [4]: p
+Out[4]: <django.core.paginator.Paginator at 0x222f0abfa48>
+
+In [5]: p.num_pages
+Out[5]: 3
+
+In [6]: for page in p.page_range:
+   ...:     print(page)
+   ...: 
+1
+2
+3
+
+In [7]: p1 = p.page(1)
+
+In [8]: p1
+Out[8]: <Page 1 of 3>
+
+In [9]: p1.number
+Out[9]: 1
+
+In [10]: p1.object_list
+Out[10]: ['1', '2']
+
+In [11]: p1.has_previous()
+Out[11]: False
+
+In [12]: p1.has_next()
+Out[12]: True
+
+In [13]: p3 = p.page(3)
+
+In [14]: p3.has_next()
+Out[14]: False
+
+In [15]: p1.next_page_number()
+Out[15]: 2

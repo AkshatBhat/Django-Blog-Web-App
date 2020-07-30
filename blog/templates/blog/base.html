@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/media/607582_blogger_2048x2048.png" />
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'blog/main.css' %}" type="text/css">
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> {% if title %}
+    <title> The Django Blog - {{title}}</title>
+    {% else %}
+    <title>The Django Blog</title>
+    {% endif %}
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container">
+                <a class="navbar-brand mr-4" href="/">The Django Blog</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav mr-auto">
+                        <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+                        <a class="nav-item nav-link" href="{% url 'blog-about' %}">About Dev</a>
+                    </div>
+                    <!-- Navbar Right Side -->
+                    <div class="navbar-nav">
+                        {% if user.is_authenticated %}
+                        <a class="nav-item nav-link" href="{% url 'post-create' %}">Create New Post</a>
+                        <a class="nav-item nav-link" href="{% url 'profile' %}">My Profile</a>
+                        <a class="nav-item nav-link" href="{% url 'logout' %}">Logout {{ user.username }}</a> {% else %}
+                        <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                        <a class="nav-item nav-link" href="{% url 'register' %}">Register</a> {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {% if messages %} {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %} {% endif %} {% block content %}{% endblock %}
+            </div>
+            <div class="col-md-4">
+                <div class="content-section position-sticky">
+                    <h3>Quick Nav Sidebar</h3>
+                    <p class='text-muted'>
+                        <ul class="list-group">
+                            <a class="list-group-item list-group-item-light nav-link" href="{% url 'blog-home' %}">Latest Posts</a>
+                            <a class="list-group-item list-group-item-light nav-link" href="{% url 'blog-announcements' %}">Announcements</a>
+                            <a class="list-group-item list-group-item-light nav-link" href="{% url 'profile' %}">My Profile</a>
+                            <a class="list-group-item list-group-item-light nav-link" href="{% url 'post-create' %}">Create New Post</a>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
+<script type="text/javascript ">
+    var scrolltotop = {
+        setting: {
+            startline: 100,
+            scrollto: 0,
+            scrollduration: 1e3,
+            fadeduration: [500, 100]
+        },
+        controlHTML: '<img src="https://i1155.photobucket.com/albums/p559/scrolltotop/arrow201.png " />',
+        controlattrs: {
+            offsetx: 5,
+            offsety: 5
+        },
+        anchorkeyword: "#top ",
+        state: {
+            isvisible: !1,
+            shouldvisible: !1
+        },
+        scrollup: function() {
+            this.cssfixedsupport || this.$control.css({
+                opacity: 0
+            });
+            var t = isNaN(this.setting.scrollto) ? this.setting.scrollto : parseInt(this.setting.scrollto);
+            t = "string " == typeof t && 1 == jQuery("# " + t).length ? jQuery("# " + t).offset().top : 0, this.$body.animate({
+                scrollTop: t
+            }, this.setting.scrollduration)
+        },
+        keepfixed: function() {
+            var t = jQuery(window),
+                o = t.scrollLeft() + t.width() - this.$control.width() - this.controlattrs.offsetx,
+                s = t.scrollTop() + t.height() - this.$control.height() - this.controlattrs.offsety;
+            this.$control.css({
+                left: o + "px ",
+                top: s + "px "
+            })
+        },
+        togglecontrol: function() {
+            var t = jQuery(window).scrollTop();
+            this.cssfixedsupport || this.keepfixed(), this.state.shouldvisible = t >= this.setting.startline ? !0 : !1, this.state.shouldvisible && !this.state.isvisible ? (this.$control.stop().animate({
+                opacity: 1
+            }, this.setting.fadeduration[0]), this.state.isvisible = !0) : 0 == this.state.shouldvisible && this.state.isvisible && (this.$control.stop().animate({
+                opacity: 0
+            }, this.setting.fadeduration[1]), this.state.isvisible = !1)
+        },
+        init: function() {
+            jQuery(document).ready(function(t) {
+                    var o = scrolltotop,
+                        s = document.all;
+                    o.cssfixedsupport = !s || s && "CSS1Compat " == document.compatMode && window.XMLHttpRequest, o.$body = t(window.opera ? "CSS1Compat " == document.compatMode ? "html " : "body " : "html,body "), o.$control = t('<div id="topcontrol
+                        ">' + o.controlHTML + " < /div>").css({ position: o.cssfixedsupport ? "fixed" : "absolute", bottom: o.controlattrs.offsety, right: o.controlattrs.offsetx, opacity: 0, cursor: "pointer" }).attr({ title: "Scroll to Top" }).click(function() { return o.scrollup(),!1
+                    }).appendTo("body"), document.all && !window.XMLHttpRequest && "" != o.$control.text() && o.$control.css({
+                    width: o.$control.width()
+                }), o.togglecontrol(), t('a[href="' + o.anchorkeyword + '"]').click(function() {
+                    return
+                    o.scrollup(), !1
+                }), t(window).bind("scroll resize", function(t) {
+                    o.togglecontrol()
+                })
+            })
+    }
+    };
+    scrolltotop.init();
+</script>
+
+</html>
