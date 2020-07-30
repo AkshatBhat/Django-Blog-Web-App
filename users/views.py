@@ -10,6 +10,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request,f"{username}, your account has been created! You can now login with your credentials!")
+            messages.success(request,"After logging in, change your profile picture by clicking My Profile!")
             return redirect('login')
     else:
         form = UserRegistrationForm()

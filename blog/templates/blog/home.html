@@ -9,7 +9,9 @@
             <!-- https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
         </div>
         <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-        <p class="article-content">{{ post.content|truncatewords:"100" }}</p>
+        <p class="article-content">{{ post.content|truncatechars:300 }}</p>
+        {% if post.content|length > 300 %}
+        <a href="{% url 'post-detail' post.id %}"><small class="text-info float-right">Continue reading...</small></a> {% endif %}
     </div>
 </article>
 {% endfor %} 

@@ -9,5 +9,6 @@ urlpatterns = [
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'), # this wil automatically use template: post_form
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('about/', views.about, name='blog-about'),
-    path('announcements/',views.announcements,name='blog-announcements')
+    path('announcements/',views.announcements,name='blog-announcements'),
+    path('instructions/',views.instructions,name='blog-instructions'),
 ]

@@ -76,3 +76,6 @@ def about(request):
 
 def announcements(request):
     return render(request, 'blog/announcements.html', dict(title="Announcements"))
+
+def instructions(request):
+    return render(request, 'blog/instructions.html', dict(title="Instructions"))
