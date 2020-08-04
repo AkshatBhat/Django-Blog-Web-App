@@ -21,7 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 import os
 
-admin_url = os.environ['DADMIN']
+admin_url = os.environ['DJANGOADMIN']
 urlpatterns = [
     path(f'{admin_url}/', admin.site.urls),
     path('register/',users_views.register,name='register'),
