@@ -21,10 +21,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 import os
 
-# admin_url = os.environ['DJANGOADMIN']
-# print(admin_url)
+admin_url = os.environ['DJANGOADMINURL']
+
 urlpatterns = [
-    path(f'admin/', admin.site.urls),
+    path(f'{admin_url}/', admin.site.urls),
     path('register/',users_views.register,name='register'),
     path('profile/',users_views.profile,name='profile'),
     path('login/',auth_views.LoginView.as_view(template_name='users/login.html'),name='login'),
