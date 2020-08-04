@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 import os
 
 admin_url = os.environ['DJANGOADMIN']
+print(admin_url)
 urlpatterns = [
     path(f'{admin_url}/', admin.site.urls),
     path('register/',users_views.register,name='register'),
