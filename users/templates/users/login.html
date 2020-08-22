@@ -3,6 +3,9 @@
 {% load crispy_forms_tags %}
 <!--  -->
 {% block content %}
+{% if user.is_authenticated %}
+  <p>Only a logged out user can view</p>
+{% else %}
 <div class="content-section">
     <form method="POST">
         {% csrf_token %}
@@ -25,4 +28,5 @@
         </small>
     </div>
 </div>
+{% endif %}
 {% endblock content %}
