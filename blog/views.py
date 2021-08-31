@@ -16,6 +16,10 @@ from django.views.generic import (
     }
     return render(request, 'blog/home.html',context)'''
 
+def error_404(request, exception):
+    data = {}
+    return render(request,'blog/404.html', data)
+
 class PostListView(ListView):
     model = Post
     template_name = 'blog/home.html' # <app>/<model>_<viewtype>.html is the naming convention, here we modified it !

@@ -23,6 +23,8 @@ import os
 
 admin_url = os.environ['DJANGOADMINURL']
 
+handler404 = 'blog.views.error_404'
+
 urlpatterns = [
 
     # ADMIN AND USER AUTH LINKS
