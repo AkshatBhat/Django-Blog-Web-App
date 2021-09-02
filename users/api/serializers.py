@@ -26,3 +26,13 @@ class RegistrationSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['image']
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
