@@ -1,0 +1,327 @@
+{
+    "openapi": "3.0.0",
+    "servers": [
+        { "url": "http://example.com", "description": "", "variables": {} }
+    ],
+    "info": {
+        "version": "77e032e6-96f5-443b-9a6c-9470dda6dedf",
+        "title": "Django Blog",
+        "description": "This is the API documentation for my [Django Blog](https://thenewdjangoblogapp.herokuapp.com/) web app! Using Postman, cURL, Python requests or any other framework or tool you can send requests just the way you would using the GUI.\n\nRemember to include the Authorization Header with the auth token string as value for requests that require authentication!",
+        "termsOfService": "",
+        "contact": {},
+        "license": { "name": "" }
+    },
+    "paths": {
+        "/user/register/": {
+            "post": {
+                "summary": "Register User",
+                "description": "Register a new user on this website.",
+                "operationId": "RegisterUser",
+                "parameters": [],
+                "responses": {
+                    "200": { "description": "", "headers": {} },
+                    "201": {
+                        "description": "Register User",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/201" }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "description": "Register a new user on this website.",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["username", "email", "password", "password2"],
+                                "properties": {
+                                    "username": { "type": "string", "example": "Falcao2" },
+                                    "email": { "type": "string", "example": "falcao@gmail.com" },
+                                    "password": { "type": "string", "example": "falcao@123" },
+                                    "password2": { "type": "string", "example": "falcao@123" }
+                                }
+                            },
+                            "example": [
+                                { "key": "username", "value": "Falcao2", "type": "text" },
+                                { "key": "email", "value": "falcao@gmail.com", "type": "text" },
+                                { "key": "password", "value": "falcao@123", "type": "text" },
+                                { "key": "password2", "value": "falcao@123", "type": "text" }
+                            ]
+                        }
+                    }
+                },
+                "tags": ["User"]
+            }
+        },
+        "/user/login/": {
+            "post": {
+                "summary": "Login User",
+                "description": "Used to obtain token for authentication for logging in.",
+                "operationId": "LoginUser",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Login User",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/200" }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "description": "Used to obtain token for authentication for logging in.",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["username", "password"],
+                                "properties": {
+                                    "username": { "type": "string", "example": "{{username}}" },
+                                    "password": { "type": "string", "example": "{{password}}" }
+                                }
+                            },
+                            "example": [
+                                { "key": "username", "value": "{{username}}", "type": "text" },
+                                { "key": "password", "value": "{{password}}", "type": "text" }
+                            ]
+                        }
+                    }
+                },
+                "tags": ["User"]
+            }
+        },
+        "/user/profile/": {
+            "patch": {
+                "summary": "Edit User Profile",
+                "description": "Edit the user profile of the currently authorized user.",
+                "operationId": "EditUserProfile",
+                "parameters": [{ "$ref": "#/components/parameters/Authorization" }],
+                "responses": { "200": { "description": "", "headers": {} } },
+                "requestBody": {
+                    "description": "Edit the user profile of the currently authorized user.",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["file", "username", "email"],
+                                "properties": {
+                                    "file": { "type": "string", "format": "binary" },
+                                    "username": { "type": "string", "example": "falcao" },
+                                    "email": { "type": "string", "example": "falcao@gmail.com" }
+                                }
+                            },
+                            "example": [{
+                                    "key": "image",
+                                    "type": "file",
+                                    "src": "/D:/Akshat DATA (D)/Pictures/images.jpg"
+                                },
+                                { "key": "username", "value": "falcao", "type": "text" },
+                                { "key": "email", "value": "falcao@gmail.com", "type": "text" }
+                            ]
+                        }
+                    }
+                },
+                "tags": ["User"]
+            }
+        },
+        "/blog/posts/": {
+            "get": {
+                "summary": "Get Post List",
+                "description": "Get the list of all the blog posts available on the website.",
+                "operationId": "GetPostList",
+                "parameters": [{ "$ref": "#/components/parameters/page" }],
+                "responses": { "200": { "description": "", "headers": {} } },
+                "tags": ["Post"]
+            }
+        },
+        "/blog/post/{pk}/": {
+            "get": {
+                "summary": "Get Post Details",
+                "description": "Get the details of a specific blog post.",
+                "operationId": "GetPostDetails",
+                "parameters": [{ "$ref": "#/components/parameters/pk" }],
+                "responses": { "200": { "description": "", "headers": {} } },
+                "tags": ["Post"]
+            }
+        },
+        "/user/{username}/": {
+            "get": {
+                "summary": "Get User Posts",
+                "description": "Get the list of all blog posts by a user.",
+                "operationId": "GetUserPosts",
+                "parameters": [{ "$ref": "#/components/parameters/username" }],
+                "responses": { "200": { "description": "", "headers": {} } },
+                "tags": ["Post"]
+            }
+        },
+        "/blog/post/{pk}/update/": {
+            "put": {
+                "summary": "Update Post",
+                "description": "Update a particular blog post.",
+                "operationId": "UpdatePost",
+                "parameters": [{
+                        "name": "pk",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": { "type": "number" }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "style": "simple",
+                        "schema": { "type": "string", "example": "Token {{token}}" }
+                    }
+                ],
+                "responses": { "200": { "description": "", "headers": {} } },
+                "requestBody": {
+                    "description": "Update a particular blog post.",
+                    "required": true,
+                    "content": {
+                        "text/plain": {
+                            "schema": {
+                                "type": "string",
+                                "example": {
+                                    "title": "{{$randomCatchPhrase}}",
+                                    "content": "{{$randomCatchPhraseDescriptor}}",
+                                    "date_posted": "{{todayDate}}"
+                                }
+                            },
+                            "example": "{\r\n    \"title\": \"{{$randomCatchPhrase}}\",\r\n    \"content\": \"{{$randomCatchPhraseDescriptor}}\",\r\n    \"date_posted\": \"{{todayDate}}\"\r\n}"
+                        }
+                    }
+                },
+                "tags": ["Post"]
+            }
+        },
+        "/blog/post/new/": {
+            "post": {
+                "summary": "Create Post",
+                "description": "Create a new blog post.",
+                "operationId": "CreatePost",
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "required": true,
+                    "style": "simple",
+                    "schema": { "type": "string", "example": "Token {{token}}" }
+                }],
+                "responses": { "200": { "description": "", "headers": {} } },
+                "requestBody": {
+                    "description": "Create a new blog post.",
+                    "required": true,
+                    "content": {
+                        "text/plain": {
+                            "schema": {
+                                "type": "string",
+                                "example": {
+                                    "title": "{{$randomPhrase}}",
+                                    "content": "{{$randomCatchPhraseDescriptor}}",
+                                    "date_posted": "{{todayDate}}"
+                                }
+                            },
+                            "example": "{\r\n    \"title\": \"{{$randomPhrase}}\",\r\n    \"content\": \"{{$randomCatchPhraseDescriptor}}\",\r\n    \"date_posted\": \"{{todayDate}}\"\r\n}"
+                        }
+                    }
+                },
+                "tags": ["Post"]
+            }
+        },
+        "/blog/post/{pk}/delete/": {
+            "delete": {
+                "summary": "Delete Post",
+                "description": "Delete an existing blog post.",
+                "operationId": "DeletePost",
+                "parameters": [{
+                        "name": "pk",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": { "type": "number" }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true,
+                        "style": "simple",
+                        "schema": { "type": "string", "example": "Token {{token}}" }
+                    }
+                ],
+                "responses": { "200": { "description": "", "headers": {} } },
+                "tags": ["Post"]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "200": {
+                "type": "object",
+                "properties": {
+                    "token": { "type": "string", "description": "", "default": "<token>" }
+                }
+            },
+            "201": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "string",
+                        "description": "",
+                        "default": "Successfully registered a new user."
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "",
+                        "default": "<username>"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "",
+                        "default": "<email>"
+                    },
+                    "token": { "type": "string", "description": "", "default": "<token>" }
+                }
+            }
+        },
+        "parameters": {
+            "Authorization": {
+                "name": "Authorization",
+                "in": "header",
+                "required": true,
+                "style": "simple",
+                "schema": { "type": "string", "example": "Token {{token}}" }
+            },
+            "page": {
+                "name": "page",
+                "in": "query",
+                "required": true,
+                "style": "form",
+                "schema": { "type": "number" }
+            },
+            "pk": {
+                "name": "pk",
+                "in": "path",
+                "required": true,
+                "style": "simple",
+                "schema": { "type": "number" }
+            },
+            "username": {
+                "name": "username",
+                "in": "path",
+                "required": true,
+                "style": "simple",
+                "schema": { "type": "string", "example": "Adama" }
+            }
+        }
+    },
+    "security": [],
+    "tags": [],
+    "externalDocs": { "url": "", "description": "" },
+    "warnings": []
+}

@@ -1,0 +1,616 @@
+{
+	"info": {
+		"_postman_id": "77e032e6-96f5-443b-9a6c-9470dda6dedf",
+		"name": "Django Blog",
+		"description": "This is the API documentation for my [Django Blog](https://thenewdjangoblogapp.herokuapp.com/) web app! Using Postman, cURL, Python requests or any other framework or tool you can send requests just the way you would using the GUI.\n\nRemember to include the Authorization Header with the auth token string as value for requests that require authentication!",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "Falcao2",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "falcao@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "falcao@123",
+									"type": "text"
+								},
+								{
+									"key": "password2",
+									"value": "falcao@123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/user/register/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"user",
+								"register",
+								""
+							]
+						},
+						"description": "Register a new user on this website."
+					},
+					"response": [
+						{
+							"name": "Register User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "{{email}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "password2",
+											"value": "{{password}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{api_url}}/user/register/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"user",
+										"register",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 02 Sep 2021 07:34:16 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.7.9"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "147"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": \"Successfully registered a new user.\",\n    \"username\": \"<username>\",\n    \"email\": \"<email>\",\n    \"token\": \"<token>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", response.token);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var ctr = pm.collectionVariables.get(\"ctr\");\r",
+									"if(ctr%2 == 0)\r",
+									"{  \r",
+									"    ctr += 1;\r",
+									"    pm.collectionVariables.set(\"username\", \"Adama\");\r",
+									"    pm.collectionVariables.set(\"password\", \"wolves@123\");\r",
+									"    pm.collectionVariables.set(\"ctr\", ctr);\r",
+									"}\r",
+									"else\r",
+									"{\r",
+									"    ctr += 1;\r",
+									"    pm.collectionVariables.set(\"username\", \"Falcao\");\r",
+									"    pm.collectionVariables.set(\"password\", \"falcao@123\");\r",
+									"    pm.collectionVariables.set(\"ctr\", ctr);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/user/login/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"user",
+								"login",
+								""
+							]
+						},
+						"description": "Used to obtain token for authentication for logging in."
+					},
+					"response": [
+						{
+							"name": "Login User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{api_url}}/user/login/",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"user",
+										"login",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Server",
+									"value": "gunicorn/20.0.4"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 04 Sep 2021 14:29:39 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"<token>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Edit User Profile",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/D:/Akshat DATA (D)/Pictures/images.jpg"
+								},
+								{
+									"key": "username",
+									"value": "falcao",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "falcao@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/user/profile/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"user",
+								"profile",
+								""
+							]
+						},
+						"description": "Edit the user profile of the currently authorized user."
+					},
+					"response": []
+				}
+			],
+			"description": "Contains all user and profile related requests."
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Get Post List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/blog/posts/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"blog",
+								"posts",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get the list of all the blog posts available on the website."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/blog/post/:pk/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"blog",
+								"post",
+								":pk",
+								""
+							],
+							"variable": [
+								{
+									"key": "pk",
+									"value": "46"
+								}
+							]
+						},
+						"description": "Get the details of a specific blog post."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/user/:username/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"user",
+								":username",
+								""
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "Adama"
+								}
+							]
+						},
+						"description": "Get the list of all blog posts by a user."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const date = new Date();\r",
+									"date.setDate(date.getDate());\r",
+									"pm.collectionVariables.set(\"todayDate\", date.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{$randomCatchPhrase}}\",\r\n    \"content\": \"{{$randomCatchPhraseDescriptor}}\",\r\n    \"date_posted\": \"{{todayDate}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/blog/post/:pk/update/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"blog",
+								"post",
+								":pk",
+								"update",
+								""
+							],
+							"variable": [
+								{
+									"key": "pk",
+									"value": "50"
+								}
+							]
+						},
+						"description": "Update a particular blog post."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Post",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const date = new Date();\r",
+									"date.setDate(date.getDate());\r",
+									"pm.collectionVariables.set(\"todayDate\", date.toISOString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"{{$randomPhrase}}\",\r\n    \"content\": \"{{$randomCatchPhraseDescriptor}}\",\r\n    \"date_posted\": \"{{todayDate}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/blog/post/new/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"blog",
+								"post",
+								"new",
+								""
+							]
+						},
+						"description": "Create a new blog post."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/blog/post/:pk/delete/",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"blog",
+								"post",
+								":pk",
+								"delete",
+								""
+							],
+							"variable": [
+								{
+									"key": "pk",
+									"value": "60"
+								}
+							]
+						},
+						"description": "Delete an existing blog post."
+					},
+					"response": []
+				}
+			],
+			"description": "Contains all blog post related requests."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api_url",
+			"value": "http://thenewdjangoblogapp.herokuapp.com/api"
+		},
+		{
+			"key": "token",
+			"value": "<token>"
+		},
+		{
+			"key": "ctr",
+			"value": "0"
+		},
+		{
+			"key": "username",
+			"value": "<username>"
+		},
+		{
+			"key": "password",
+			"value": "<password>"
+		},
+		{
+			"key": "email",
+			"value": "<email>"
+		}
+	]
+}
